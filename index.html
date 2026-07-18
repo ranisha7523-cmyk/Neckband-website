@@ -482,19 +482,19 @@
         </div>
         <!-- Right Column: Glassmorphic Message Form -->
         <div class="bg-surface-container-high/60 backdrop-blur-xl border border-outline-variant p-8 md:p-10 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] relative max-w-lg w-full mx-auto">
-          <h3 class="text-headline-lg-mobile text-primary mb-6">Send a Message</h3>
-          <form class="flex flex-col gap-5">
+          <h3 class="text-headline-lg-mobile text-primary mb-6">Book an Appointment</h3>
+          <form class="flex flex-col gap-5" id="appointment-form">
             <div class="flex flex-col gap-2">
-              <input type="text" placeholder="Your Name" class="w-full bg-surface-container-lowest/50 border border-outline-variant rounded-lg h-12 px-4 text-on-surface placeholder-text-muted focus:outline-none focus:border-primary-container transition-colors" required>
+              <input type="text" id="appointment-name" placeholder="Your Name" class="w-full bg-surface-container-lowest/50 border border-outline-variant rounded-lg h-12 px-4 text-on-surface placeholder-text-muted focus:outline-none focus:border-primary-container transition-colors" required>
             </div>
             <div class="flex flex-col gap-2">
-              <input type="email" placeholder="Your Email" class="w-full bg-surface-container-lowest/50 border border-outline-variant rounded-lg h-12 px-4 text-on-surface placeholder-text-muted focus:outline-none focus:border-primary-container transition-colors" required>
+              <input type="email" id="appointment-email" placeholder="Your Email" class="w-full bg-surface-container-lowest/50 border border-outline-variant rounded-lg h-12 px-4 text-on-surface placeholder-text-muted focus:outline-none focus:border-primary-container transition-colors" required>
             </div>
             <div class="flex flex-col gap-2">
-              <textarea placeholder="Your Message" rows="4" class="w-full bg-surface-container-lowest/50 border border-outline-variant rounded-lg p-4 text-on-surface placeholder-text-muted focus:outline-none focus:border-primary-container transition-colors resize-none" required></textarea>
+              <textarea id="appointment-message" placeholder="Your Message or Preference" rows="4" class="w-full bg-surface-container-lowest/50 border border-outline-variant rounded-lg p-4 text-on-surface placeholder-text-muted focus:outline-none focus:border-primary-container transition-colors resize-none" required></textarea>
             </div>
             <button type="submit" class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 bg-primary-container text-on-primary-container font-bold hover:scale-[1.02] transition-transform duration-300 shadow-[0_0_15px_rgba(0,240,255,0.2)]">
-              <span>Send Message</span>
+              <span>Book Appointment</span>
             </button>
           </form>
         </div>
@@ -559,6 +559,8 @@
     </div>
   </div>
 
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <!-- JavaScript File -->
   <script src="app.js"></script>
 </body>

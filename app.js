@@ -357,3 +357,64 @@ function handleSignup(e) {
   document.getElementById('auth-modal').classList.add('hidden');
 }
 
+// ==========================================================================
+// SUPABASE BACKEND INTEGRATION
+// ==========================================================================
+
+const supabaseUrl = 'https://srrkbcqggjjugfqhxtua.supabase.co';
+const supabaseKey = 'sb_publishable_qq3RyG6BwmEfbjv1v2WTmg_L2uREJhl';
+let supabaseClient = null;
+
+try {
+  if (window.supabase) {
+    supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+  }
+} catch (e) {
+  console.error("Failed to initialize Supabase:", e);
+}
+
+// Hook appointment form submission to Supabase
+document.addEventListener('DOMContentLoaded', () => {
+  const appointmentForm = document.getElementById('appointment-form');
+  if (appointmentForm) {
+    appointmentForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('appointment-name').value.trim();
+      const email = document.getElementById('appointment-email').value.trim();
+      const message = document.getElementById('appointment-message').value.trim();
+      
+      const submitBtn = appointmentForm.querySelector('button[type="submit"]');
+      const submitBtnText = submitBtn.querySelector('span');
+      const originalText = submitBtnText.textContent;
+      
+      submitBtnText.textContent = "Booking...";
+      submitBtn.disabled = true;
+      
+      if (!supabaseClient) {
+        alert("Supabase CDN failed to load. Please check your internet connection.");
+        submitBtnText.textContent = originalText;
+        submitBtn.disabled = false;
+        return;
+      }
+      
+      try {
+        const { error } = await supabaseClient
+          .from('appointments')
+          .insert([{ name, email, message }]);
+          
+        if (error) throw error;
+        
+        alert("🎉 Appointment Booked Successfully! Details have been saved to your Supabase backend.");
+        appointmentForm.reset();
+      } catch (err) {
+        console.error("Supabase database error:", err);
+        alert(`⚠️ Supabase connection failed: ${err.message || err}\n\nTo resolve this:\n1. Make sure you have created a table named 'appointments' in your Supabase Dashboard.\n2. Ensure columns 'name', 'email', and 'message' exist in that table.\n3. Make sure to ENABLE public INSERT access in your table's RLS (Row Level Security) policies.`);
+      } finally {
+        submitBtnText.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+  }
+});
+
