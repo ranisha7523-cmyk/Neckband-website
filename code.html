@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aroma NB123 Avengers | Electric-Blue Energy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@500&amp;family=Space+Grotesk:wght@600;700&amp;family=Hanken+Grotesk:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ffb4ab",
+                        "on-error-container": "#ffdad6",
+                        "primary-container": "#00f0ff",
+                        "tertiary-container": "#dbd8e4",
+                        "on-secondary": "#002d6d",
+                        "on-tertiary-fixed-variant": "#46464f",
+                        "on-secondary-fixed": "#001944",
+                        "on-surface": "#e4e1e8",
+                        "error-container": "#93000a",
+                        "on-primary-fixed": "#002022",
+                        "background": "#131318",
+                        "on-background": "#e4e1e8",
+                        "surface-dim": "#131318",
+                        "surface": "#131318",
+                        "outline-variant": "#3b494b",
+                        "primary-fixed": "#7df4ff",
+                        "on-primary-fixed-variant": "#004f54",
+                        "primary": "#dbfcff",
+                        "on-secondary-fixed-variant": "#00429a",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#c7c5d0",
+                        "tertiary": "#f8f4ff",
+                        "tertiary-fixed": "#e4e1ed",
+                        "surface-container-highest": "#34343a",
+                        "inverse-primary": "#006970",
+                        "on-tertiary-fixed": "#1b1b23",
+                        "surface-bright": "#39393e",
+                        "outline": "#849495",
+                        "on-tertiary-container": "#5f5e68",
+                        "primary-fixed-dim": "#00dbe9",
+                        "surface-variant": "#34343a",
+                        "inverse-on-surface": "#303035",
+                        "on-secondary-container": "#002760",
+                        "surface-container-high": "#2a292f",
+                        "secondary-fixed": "#d9e2ff",
+                        "on-tertiary": "#303038",
+                        "surface-tint": "#00dbe9",
+                        "surface-container-lowest": "#0e0e12",
+                        "on-surface-variant": "#b9cacb",
+                        "inverse-surface": "#e4e1e8",
+                        "secondary-fixed-dim": "#afc6ff",
+                        "secondary-container": "#548dff",
+                        "secondary": "#afc6ff",
+                        "on-primary": "#00363a",
+                        "on-primary-container": "#006970",
+                        "surface-container": "#1f1f24",
+                        "surface-container-low": "#1b1b20"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "section-gap": "80px",
+                        "container-padding": "24px",
+                        "base": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Geist", "sans-serif"],
+                        "headline-lg-mobile": ["Space Grotesk", "sans-serif"],
+                        "body-md": ["Hanken Grotesk", "sans-serif"],
+                        "display-lg": ["Space Grotesk", "sans-serif"],
+                        "headline-lg": ["Space Grotesk", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            font-family: theme('fontFamily.body-md');
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: theme('fontFamily.display-lg');
+        }
+        
+        /* Subtle glow animation for the background */
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        .bg-glow-effect {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at center, rgba(0, 240, 255, 0.15) 0%, transparent 70%);
+            animation: pulse-glow 4s ease-in-out infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden min-h-screen flex flex-col">
+<!-- TopNavBar Shared Component -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-outline-variant px-10 py-3 bg-surface-container sticky top-0 z-50">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-4">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-primary text-lg font-bold leading-tight tracking-[-0.015em]">Aroma NB123</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9 hidden md:flex">
+<a class="text-on-surface text-sm font-medium leading-normal hover:text-primary transition-colors" href="#features">Features</a>
+<a class="text-on-surface text-sm font-medium leading-normal hover:text-primary transition-colors" href="#technology">Technology</a>
+<a class="text-on-surface text-sm font-medium leading-normal hover:text-primary transition-colors" href="#specs">Specs</a>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded h-10 px-4 bg-primary-container text-on-primary-container text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary-fixed transition-colors">
+<span class="truncate">Shop Now</span>
+</button>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative py-section-gap px-container-padding flex items-center justify-center min-h-[819px] overflow-hidden">
+<div class="bg-glow-effect"></div>
+<div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-gutter items-center relative z-10">
+<div class="flex flex-col gap-6 lg:pr-12 text-center lg:text-left">
+<h1 class="text-display-lg text-primary">
+                        Experience the Power:<br/>Aroma NB123 Avengers
+                    </h1>
+<h2 class="text-headline-lg-mobile text-on-surface-variant">
+                        Unleash Cinematic Sound with Electric-Blue Energy.
+                    </h2>
+<div class="mt-4 flex justify-center lg:justify-start">
+<button class="flex min-w-[140px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-8 bg-primary-container text-on-primary-container font-bold text-lg hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:shadow-[0_0_30px_rgba(0,240,255,0.5)]">
+<span>Shop Now</span>
+</button>
+</div>
+</div>
+<div class="relative w-full aspect-square md:aspect-video lg:aspect-square flex justify-center items-center">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary-container/20 to-transparent rounded-full blur-3xl scale-75"></div>
+<img class="object-contain w-full h-full max-h-[500px] z-10 relative drop-shadow-2xl animate-[float_6s_ease-in-out_infinite]" data-alt="A sleek, high-tech black neckband earphone, the Aroma NB123 Avengers edition, floating in a dark studio space. Vibrant electric-blue energy waves emanate from the earpieces, highlighting its modern, premium design. The lighting is cinematic and dramatic, emphasizing the sleek contours of the product against a deep, dark background. The overall mood is powerful and futuristic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDpeA9uNgjsDh3N1F13JTj4-ImO1cq5Hw8RzChBQphI3bEe9Skv-zhbjBgdltNBir5EROMF7KDyB7VJPB-j12UsfMIEkuIjyec1EEjlZHgmQLyHJQb_b5SlmmjL2mcuhHC2rnHikhWBQYwKavnYktKQu_Z4qyrAwdp35Bd-GVLxuDEqFJy1_CMNtghNG16LRXxJU0HyrKWN-tL6RXE3MTU_nhgg_nXAqiQp-bDreObHFJXFqt7sQLL81uTF2hBClAIYi27TGTOzPM" style="animation: float 6s ease-in-out infinite;"/>
+<style>
+                        @keyframes float {
+                            0% { transform: translateY(0px); }
+                            50% { transform: translateY(-20px); }
+                            100% { transform: translateY(0px); }
+                        }
+                    </style>
+</div>
+</div>
+</section>
+<!-- Features Grid (Adapted from Shared Components logic) -->
+<section class="py-section-gap px-container-padding bg-surface-container-low" id="features">
+<div class="max-w-7xl mx-auto flex flex-col gap-10">
+<div class="flex flex-col gap-4 text-center items-center">
+<h2 class="text-headline-lg text-primary max-w-[720px]">
+                        Key Features
+                    </h2>
+<p class="text-body-md text-on-surface-variant max-w-[720px]">
+                        Discover why the Aroma NB123 Avengers is the ultimate audio experience.
+                    </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="flex flex-1 gap-4 rounded-xl border border-outline-variant bg-surface-container p-6 flex-col hover:border-primary-container transition-colors duration-300">
+<div class="text-primary-container bg-surface-container-highest p-3 rounded-full w-fit">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0; font-size: 32px;">graphic_eq</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="text-headline-lg-mobile text-on-surface">Pro-Grade Audio</h3>
+<p class="text-body-md text-on-surface-variant">Immerse yourself in cinematic sound with our custom-tuned drivers and advanced acoustic chamber.</p>
+</div>
+</div>
+<div class="flex flex-1 gap-4 rounded-xl border border-outline-variant bg-surface-container p-6 flex-col hover:border-primary-container transition-colors duration-300">
+<div class="text-primary-container bg-surface-container-highest p-3 rounded-full w-fit">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0; font-size: 32px;">battery_charging_full</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="text-headline-lg-mobile text-on-surface">48-Hour Battery Life</h3>
+<p class="text-body-md text-on-surface-variant">Enjoy uninterrupted listening for up to 48 hours on a single charge. Quick charge provides 10 hours of playtime in 10 minutes.</p>
+</div>
+</div>
+<div class="flex flex-1 gap-4 rounded-xl border border-outline-variant bg-surface-container p-6 flex-col hover:border-primary-container transition-colors duration-300">
+<div class="text-primary-container bg-surface-container-highest p-3 rounded-full w-fit">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0; font-size: 32px;">shield</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="text-headline-lg-mobile text-on-surface">Avengers Edition Design</h3>
+<p class="text-body-md text-on-surface-variant">Show your allegiance with the exclusive Avengers edition styling, featuring premium materials and iconic insignias.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Technology Section -->
+<section class="py-section-gap px-container-padding bg-background relative overflow-hidden" id="technology">
+<div class="max-w-7xl mx-auto flex flex-col gap-8 text-center items-center relative z-10">
+<h2 class="text-headline-lg text-primary">Electric-Blue Energy Technology</h2>
+<div class="w-full bg-cover bg-center flex flex-col justify-end overflow-hidden rounded-xl min-h-[400px] border border-outline-variant relative" data-alt="A mesmerizing digital visualization of electric-blue sound waves pulsating outwards from a central high-tech core. The energy waves are luminous and detailed, glowing intensely against a deep, dark studio background. The lighting is focused entirely on the neon cyan structures, creating a strong contrast and a sense of powerful, advanced audio technology. The mood is futuristic and energetic." style="background-image: linear-gradient(0deg, rgba(19, 19, 24, 0.8) 0%, rgba(19, 19, 24, 0.2) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuBTqnJJCdh-0aCauzwO-aRy7NFhjLKNYY2BsqNWuCbakus-YSJdwDXWLrzHf4GuP_Ik-ZNPlYQiD66l2R-Ay_ftVHWmnaFvOidgaryeTrHTpOEuMszd5tftH84wSwInMMuDsBON3isP90WAWOjzSkEuhekv8XvGiLh6ShXDwnHA2aRgRrOCibkBtwnW5u2t6Dtt5wi-ETEbSTcggMChH6kdZt2V-KVYFykjKHK9vMiHz4PGOaiGem1BzAx1C1Q0ifG4KT3Wl35I2oA');">
+<div class="absolute inset-0 bg-primary-container/10 mix-blend-overlay"></div>
+<div class="flex p-8 flex-col items-center justify-center h-full text-center max-w-3xl mx-auto relative z-10">
+<span class="material-symbols-outlined text-primary-container mb-4" style="font-size: 64px;">waves</span>
+<p class="text-body-md text-on-surface text-lg">
+                            Our proprietary energy wave technology ensures crystal-clear audio transmission, delivering an unparalleled listening experience with deep bass and crisp highs. The intelligent chip dynamically adjusts frequencies to match your environment.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Technical Specifications -->
+<section class="py-section-gap px-container-padding bg-surface-container-low" id="specs">
+<div class="max-w-4xl mx-auto flex flex-col gap-8">
+<div class="text-center mb-6">
+<h2 class="text-headline-lg text-primary">Technical Specifications</h2>
+</div>
+<div class="bg-surface-container border border-outline-variant rounded-xl overflow-hidden shadow-lg">
+<table class="w-full text-left border-collapse">
+<tbody>
+<tr class="border-b border-outline-variant hover:bg-surface-container-highest transition-colors">
+<th class="py-4 px-6 text-on-surface font-semibold w-1/3">Bluetooth Version</th>
+<td class="py-4 px-6 text-on-surface-variant">v5.3</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-highest transition-colors">
+<th class="py-4 px-6 text-on-surface font-semibold w-1/3">Driver Size</th>
+<td class="py-4 px-6 text-on-surface-variant">10mm Titanium-coated dynamic drivers</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-highest transition-colors">
+<th class="py-4 px-6 text-on-surface font-semibold w-1/3">Battery Life</th>
+<td class="py-4 px-6 text-on-surface-variant">Up to 48 hours (ANC off)</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-highest transition-colors">
+<th class="py-4 px-6 text-on-surface font-semibold w-1/3">Charging Time</th>
+<td class="py-4 px-6 text-on-surface-variant">2 hours full charge via USB-C</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-highest transition-colors">
+<th class="py-4 px-6 text-on-surface font-semibold w-1/3">Water Resistance</th>
+<td class="py-4 px-6 text-on-surface-variant">IPX5 (Sweat and splash resistant)</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors">
+<th class="py-4 px-6 text-on-surface font-semibold w-1/3">Weight</th>
+<td class="py-4 px-6 text-on-surface-variant">32g</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</main>
+<!-- Minimal Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant py-8 px-10 text-center">
+<p class="text-label-sm text-on-surface-variant">© 2024 Aroma Electronics. All rights reserved. "Avengers" is a trademark of Marvel.</p>
+</footer>
+</body></html>

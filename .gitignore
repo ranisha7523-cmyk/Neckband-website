@@ -1,0 +1,15 @@
+# Windows temp files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# OS X temp files
+.DS_Store
+
+# Editor configurations
+.vscode/
+.idea/
+
+# Gemini temp logs
+.gemini/
+*.log
