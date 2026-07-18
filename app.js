@@ -380,9 +380,18 @@ document.addEventListener('DOMContentLoaded', () => {
     appointmentForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      const name = document.getElementById('appointment-name').value.trim();
+      const full_name = document.getElementById('appointment-name').value.trim();
       const email = document.getElementById('appointment-email').value.trim();
-      const message = document.getElementById('appointment-message').value.trim();
+      const phone = document.getElementById('appointment-phone').value.trim();
+      const dob = document.getElementById('appointment-dob').value;
+      const department = document.getElementById('appointment-dept').value;
+      const doctor = document.getElementById('appointment-specialist').value;
+      const appointment_date = document.getElementById('appointment-date').value;
+      const time_slot = document.getElementById('appointment-timeslot').value;
+      const reason = document.getElementById('appointment-message').value.trim();
+      
+      // Auto-generate a unique ticket ID (E.g. NOVA-48293)
+      const ticket_id = 'NOVA-' + Math.floor(10000 + Math.random() * 90000);
       
       const submitBtn = appointmentForm.querySelector('button[type="submit"]');
       const submitBtnText = submitBtn.querySelector('span');
@@ -401,15 +410,26 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const { error } = await supabaseClient
           .from('appointments')
-          .insert([{ name, email, message }]);
+          .insert([{ 
+            ticket_id,
+            full_name,
+            email,
+            phone,
+            dob,
+            department,
+            doctor,
+            appointment_date,
+            time_slot,
+            reason
+          }]);
           
         if (error) throw error;
         
-        alert("🎉 Appointment Booked Successfully! Details have been saved to your Supabase backend.");
+        alert(`🎉 Booking Successful!\n\nYour Ticket ID is: ${ticket_id}\nDetails saved to your Supabase backend.`);
         appointmentForm.reset();
       } catch (err) {
         console.error("Supabase database error:", err);
-        alert(`⚠️ Supabase connection failed: ${err.message || err}\n\nTo resolve this:\n1. Make sure you have created a table named 'appointments' in your Supabase Dashboard.\n2. Ensure columns 'name', 'email', and 'message' exist in that table.\n3. Make sure to ENABLE public INSERT access in your table's RLS (Row Level Security) policies.`);
+        alert(`⚠️ Supabase connection failed: ${err.message || err}\n\nTo resolve this:\n1. Execute the SQL script provided to create the table inside your Supabase SQL Editor.\n2. Ensure columns exactly match: ticket_id, full_name, email, phone, dob, department, doctor, appointment_date, time_slot, reason.\n3. Make sure public INSERT is allowed in your RLS policies.`);
       } finally {
         submitBtnText.textContent = originalText;
         submitBtn.disabled = false;
