@@ -3,337 +3,538 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Admin Dashboard | Nova Studio</title>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <!-- Google Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&amp;family=Hanken+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+  <title>Admin Portal | Nova Studio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Hanken+Grotesk:wght@400;500;700&display=swap" rel="stylesheet"/>
   <style>
-    body {
-      background-color: #08080c;
-      color: #e4e1e8;
-      font-family: 'Hanken Grotesk', sans-serif;
+    body { background-color: #07070c; color: #e4e1e8; font-family: 'Hanken Grotesk', sans-serif; }
+    h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Glow effects */
+    .card-glow {
+      box-shadow: 0 0 40px rgba(0, 240, 255, 0.04), 0 30px 60px rgba(0, 0, 0, 0.8);
     }
-    h1, h2, h3 {
-      font-family: 'Space Grotesk', sans-serif;
+    .btn-google {
+      background: linear-gradient(135deg, #1a1a1f 0%, #111116 100%);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s ease;
     }
-    /* Hide scrollbar */
-    .hide-scrollbar::-webkit-scrollbar {
-      display: none;
+    .btn-google:hover {
+      border-color: rgba(255,255,255,0.25);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
     }
-    .hide-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+    .btn-primary {
+      background: linear-gradient(135deg, #00e5ff 0%, #00b8d4 100%);
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 30px rgba(0, 229, 255, 0.3);
+    }
+    .input-field {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.3s ease;
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: #00e5ff;
+      background: rgba(0, 229, 255, 0.04);
+      box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.08);
+    }
+    .divider-text {
+      background: #07070c;
+      padding: 0 12px;
+      position: relative;
+      z-index: 1;
+    }
+    /* Tab active */
+    .auth-tab.active {
+      color: #00e5ff;
+      border-bottom: 2px solid #00e5ff;
+    }
+
+    /* Dashboard table */
+    .stat-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+      border: 1px solid rgba(255,255,255,0.06);
     }
   </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col justify-between">
+<body class="antialiased min-h-screen flex flex-col">
 
-  <!-- Main Section -->
-  <main class="flex-grow flex items-center justify-center p-6">
-    
-    <!-- AUTH CONTAINER (Login / Signup) -->
-    <div id="admin-auth-card" class="bg-surface-container/60 backdrop-blur-xl border border-outline-variant p-8 md:p-10 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] relative max-w-md w-full border-[rgba(255,255,255,0.08)] bg-[#0e0e14]/90">
+  <!-- ============================== -->
+  <!--       AUTH SECTION             -->
+  <!-- ============================== -->
+  <main id="auth-section" class="flex-grow flex items-center justify-center p-4 py-10">
+    <div class="w-full max-w-md">
+
+      <!-- Logo / Brand -->
       <div class="text-center mb-8">
-        <h2 class="text-2xl font-bold text-primary text-[#dbfcff]">Nova Admin Portal</h2>
-        <p class="text-xs text-[#b9cacb] mt-1" id="auth-subtitle">Secure admin verification required</p>
-      </div>
-
-      <!-- Admin Signup (Active only if NO admin exists in database) -->
-      <div id="admin-signup-view" class="flex flex-col gap-6 hidden">
-        <div class="bg-primary-container/10 border border-primary-container/20 p-3 rounded-lg text-xs text-[#00f0ff] mb-2 text-center">
-          ⚠️ <strong>Admin Slot Available:</strong> You are the first admin. Create your permanent account.
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#00e5ff]/10 border border-[#00e5ff]/20 mb-4">
+          <span class="material-symbols-outlined text-[#00e5ff] text-2xl">shield_lock</span>
         </div>
-        <form id="admin-signup-form" class="flex flex-col gap-4">
-          <input type="email" id="signup-email" placeholder="Admin Email" class="w-full bg-[#050508]/50 border border-[rgba(255,255,255,0.08)] rounded-lg h-12 px-4 text-on-surface focus:outline-none focus:border-[#00f0ff] transition-colors" required>
-          <input type="password" id="signup-password" placeholder="Choose Admin Password" class="w-full bg-[#050508]/50 border border-[rgba(255,255,255,0.08)] rounded-lg h-12 px-4 text-on-surface focus:outline-none focus:border-[#00f0ff] transition-colors" required>
-          <button type="submit" class="flex w-full cursor-pointer items-center justify-center rounded-lg h-12 bg-[#00f0ff] text-[#002022] font-bold hover:scale-[1.02] transition-transform duration-300">
-            <span>Register Admin Account</span>
-          </button>
-        </form>
+        <h2 class="text-2xl font-bold text-white">Nova Admin Portal</h2>
+        <p class="text-sm text-[#8a8d9e] mt-1" id="auth-subtitle">Secure access — administrators only</p>
       </div>
 
-      <!-- Admin Login -->
-      <div id="admin-login-view" class="flex flex-col gap-6">
-        <form id="admin-login-form" class="flex flex-col gap-4">
-          <input type="email" id="login-email" placeholder="Admin Email" class="w-full bg-[#050508]/50 border border-[rgba(255,255,255,0.08)] rounded-lg h-12 px-4 text-on-surface focus:outline-none focus:border-[#00f0ff] transition-colors" required>
-          <input type="password" id="login-password" placeholder="Password" class="w-full bg-[#050508]/50 border border-[rgba(255,255,255,0.08)] rounded-lg h-12 px-4 text-on-surface focus:outline-none focus:border-[#00f0ff] transition-colors" required>
-          <div id="login-error" class="text-xs text-red-400 hidden">Invalid admin credentials. Access Denied.</div>
-          <button type="submit" class="flex w-full cursor-pointer items-center justify-center rounded-lg h-12 bg-[#00f0ff] text-[#002022] font-bold hover:scale-[1.02] transition-transform duration-300">
-            <span>Verify & Login</span>
+      <!-- Auth Card -->
+      <div class="card-glow bg-[#0d0d12] border border-white/[0.07] rounded-2xl p-8">
+
+        <!-- First-time Admin Registration Banner -->
+        <div id="first-admin-banner" class="hidden mb-5 bg-[#00e5ff]/5 border border-[#00e5ff]/20 rounded-xl p-4 text-center">
+          <span class="material-symbols-outlined text-[#00e5ff] text-xl align-middle mr-1">info</span>
+          <span class="text-xs text-[#00e5ff] font-semibold">First-time Setup: Create your single admin account</span>
+        </div>
+
+        <!-- Tabs: Login / Register -->
+        <div id="auth-tabs" class="flex gap-0 border-b border-white/[0.07] mb-6 hidden">
+          <button class="auth-tab active text-sm font-semibold py-2 pr-5 border-b-2 border-transparent transition-all" id="tab-login" onclick="switchTab('login')">Sign In</button>
+          <button class="auth-tab text-sm font-semibold py-2 px-5 border-b-2 border-transparent text-[#8a8d9e] transition-all" id="tab-register" onclick="switchTab('register')">Create Account</button>
+        </div>
+
+        <!-- LOGIN VIEW -->
+        <div id="login-view">
+          <!-- Google Sign-In Button -->
+          <button id="google-login-btn" class="btn-google w-full flex items-center justify-center gap-3 rounded-xl h-12 font-semibold text-sm mb-4">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
+              <path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"/>
+              <path d="M3.964 10.712A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.712V4.956H.957A9.009 9.009 0 0 0 0 9c0 1.452.348 2.827.957 4.044l3.007-2.332z" fill="#FBBC05"/>
+              <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.956L3.964 6.288C4.672 4.161 6.656 3.58 9 3.58z" fill="#EA4335"/>
+            </svg>
+            Continue with Google
           </button>
-        </form>
+
+          <!-- Divider -->
+          <div class="relative flex items-center my-5">
+            <div class="flex-grow h-px bg-white/[0.07]"></div>
+            <span class="divider-text text-xs text-[#8a8d9e] font-medium">or continue with email</span>
+            <div class="flex-grow h-px bg-white/[0.07]"></div>
+          </div>
+
+          <!-- Email/Password Login Form -->
+          <form id="email-login-form" class="flex flex-col gap-4">
+            <input type="email" id="login-email" placeholder="Admin Email Address" class="input-field w-full rounded-xl h-12 px-4 text-sm text-white placeholder-[#4a4d5e]" required>
+            <div class="relative">
+              <input type="password" id="login-password" placeholder="Password" class="input-field w-full rounded-xl h-12 px-4 text-sm text-white placeholder-[#4a4d5e] pr-12" required>
+              <button type="button" onclick="togglePass('login-password', this)" class="absolute right-3 top-3 text-[#4a4d5e] hover:text-[#8a8d9e]">
+                <span class="material-symbols-outlined text-xl">visibility</span>
+              </button>
+            </div>
+            <div id="login-error" class="hidden text-xs text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
+              ⚠️ Invalid credentials. Access denied.
+            </div>
+            <button type="submit" class="btn-primary w-full rounded-xl h-12 font-bold text-sm text-[#002830] mt-1">
+              Verify & Sign In
+            </button>
+          </form>
+        </div>
+
+        <!-- REGISTER VIEW (only shown when no admin exists) -->
+        <div id="register-view" class="hidden">
+          <!-- Google Sign-Up Button -->
+          <button id="google-signup-btn" class="btn-google w-full flex items-center justify-center gap-3 rounded-xl h-12 font-semibold text-sm mb-4">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
+              <path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"/>
+              <path d="M3.964 10.712A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.712V4.956H.957A9.009 9.009 0 0 0 0 9c0 1.452.348 2.827.957 4.044l3.007-2.332z" fill="#FBBC05"/>
+              <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.956L3.964 6.288C4.672 4.161 6.656 3.58 9 3.58z" fill="#EA4335"/>
+            </svg>
+            Register with Google
+          </button>
+
+          <!-- Divider -->
+          <div class="relative flex items-center my-5">
+            <div class="flex-grow h-px bg-white/[0.07]"></div>
+            <span class="divider-text text-xs text-[#8a8d9e] font-medium">or use email & password</span>
+            <div class="flex-grow h-px bg-white/[0.07]"></div>
+          </div>
+
+          <!-- Email/Password Register Form -->
+          <form id="email-register-form" class="flex flex-col gap-4">
+            <input type="email" id="reg-email" placeholder="Admin Email Address" class="input-field w-full rounded-xl h-12 px-4 text-sm text-white placeholder-[#4a4d5e]" required>
+            <div class="relative">
+              <input type="password" id="reg-password" placeholder="Create Password (min 6 chars)" class="input-field w-full rounded-xl h-12 px-4 text-sm text-white placeholder-[#4a4d5e] pr-12" required minlength="6">
+              <button type="button" onclick="togglePass('reg-password', this)" class="absolute right-3 top-3 text-[#4a4d5e] hover:text-[#8a8d9e]">
+                <span class="material-symbols-outlined text-xl">visibility</span>
+              </button>
+            </div>
+            <button type="submit" class="btn-primary w-full rounded-xl h-12 font-bold text-sm text-[#002830] mt-1">
+              Create Admin Account
+            </button>
+          </form>
+        </div>
+
       </div>
+
+      <!-- Back to Home -->
+      <p class="text-center text-xs text-[#4a4d5e] mt-6">
+        <a href="index.html" class="hover:text-[#00e5ff] transition-colors">← Back to website</a>
+      </p>
     </div>
-
-    <!-- DASHBOARD CONTAINER (Visible after Auth) -->
-    <div id="admin-dashboard" class="w-full max-w-7xl bg-[#0e0e14]/60 backdrop-blur-xl border border-[rgba(255,255,255,0.08)] p-6 md:p-8 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] hidden">
-      <!-- Dashboard Header -->
-      <div class="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-[rgba(255,255,255,0.08)] pb-6 mb-6">
-        <div class="flex items-center gap-3">
-          <span class="material-symbols-outlined text-[#00f0ff] text-3xl">dashboard</span>
-          <div>
-            <h2 class="text-2xl font-bold text-[#dbfcff]">Bookings Management</h2>
-            <p class="text-xs text-[#b9cacb]">Review and manage active appointments</p>
-          </div>
-        </div>
-        <div class="flex items-center gap-4 w-full md:w-auto">
-          <!-- Search Bar -->
-          <input type="text" id="search-input" placeholder="Search by name or ticket..." class="bg-[#050508]/50 border border-[rgba(255,255,255,0.08)] rounded-lg h-10 px-4 text-sm text-on-surface focus:outline-none focus:border-[#00f0ff] transition-colors w-full md:w-64">
-          <button id="logout-admin-btn" class="flex items-center justify-center gap-2 rounded-lg h-10 px-4 border border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition-all duration-300 text-sm font-semibold whitespace-nowrap">
-            <span class="material-symbols-outlined text-sm">logout</span>
-            <span>Sign Out</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Dashboard Statistics -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <div class="bg-[#121217] border border-[rgba(255,255,255,0.05)] p-5 rounded-xl flex items-center justify-between">
-          <div>
-            <span class="text-xs text-[#b9cacb] uppercase tracking-wider font-semibold">Total Bookings</span>
-            <h3 class="text-3xl font-bold text-[#dbfcff] mt-1" id="stat-total">0</h3>
-          </div>
-          <span class="material-symbols-outlined text-[#00f0ff] text-4xl opacity-80">book_online</span>
-        </div>
-        <div class="bg-[#121217] border border-[rgba(255,255,255,0.05)] p-5 rounded-xl flex items-center justify-between">
-          <div>
-            <span class="text-xs text-[#b9cacb] uppercase tracking-wider font-semibold">Tuning Bookings</span>
-            <h3 class="text-3xl font-bold text-[#dbfcff] mt-1" id="stat-tuning">0</h3>
-          </div>
-          <span class="material-symbols-outlined text-[#00f0ff] text-4xl opacity-80">graphic_eq</span>
-        </div>
-        <div class="bg-[#121217] border border-[rgba(255,255,255,0.05)] p-5 rounded-xl flex items-center justify-between">
-          <div>
-            <span class="text-xs text-[#b9cacb] uppercase tracking-wider font-semibold">Lab Experiments</span>
-            <h3 class="text-3xl font-bold text-[#dbfcff] mt-1" id="stat-lab">0</h3>
-          </div>
-          <span class="material-symbols-outlined text-[#00f0ff] text-4xl opacity-80">science</span>
-        </div>
-      </div>
-
-      <!-- Bookings Table -->
-      <div class="overflow-x-auto border border-[rgba(255,255,255,0.08)] rounded-xl hide-scrollbar">
-        <table class="w-full text-left border-collapse min-w-[1000px]">
-          <thead>
-            <tr class="bg-[#121217] border-b border-[rgba(255,255,255,0.08)] text-xs text-[#b9cacb] uppercase font-semibold">
-              <th class="py-4 px-6">Ticket ID</th>
-              <th class="py-4 px-6">Full Name</th>
-              <th class="py-4 px-6">Email & Phone</th>
-              <th class="py-4 px-6">DOB</th>
-              <th class="py-4 px-6">Dept & Specialist</th>
-              <th class="py-4 px-6">Date & Time</th>
-              <th class="py-4 px-6">Reason / Message</th>
-              <th class="py-4 px-6 text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="bookings-table-body" class="text-sm divide-y divide-[rgba(255,255,255,0.05)] bg-[#0e0e14]/30">
-            <tr>
-              <td colspan="8" class="py-8 text-center text-[#b9cacb]">Loading bookings...</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
   </main>
 
-  <!-- Minimal Footer -->
-  <footer class="border-t border-[rgba(255,255,255,0.08)] py-6 text-center text-xs text-[#b9cacb] bg-[#050508]">
-    <div class="flex justify-center items-center gap-4">
-      <span>© 2024 Aroma Electronics. All rights reserved.</span>
-      <span>•</span>
-      <a href="index.html" class="hover:text-[#00f0ff] transition-colors font-semibold">Back to Home</a>
-    </div>
-  </footer>
+  <!-- ============================== -->
+  <!--       DASHBOARD SECTION        -->
+  <!-- ============================== -->
+  <div id="dashboard-section" class="hidden flex-grow flex flex-col min-h-screen">
 
-  <!-- Supabase CDN & Logic -->
+    <!-- Top Navbar -->
+    <header class="bg-[#0d0d12] border-b border-white/[0.07] px-6 py-4 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[#00e5ff] text-2xl">shield_lock</span>
+          <div>
+            <h1 class="text-lg font-bold text-white leading-none">Nova Admin Dashboard</h1>
+            <p class="text-xs text-[#8a8d9e]">Booking Management Panel</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <!-- Admin avatar -->
+          <div class="flex items-center gap-2 bg-white/[0.04] border border-white/[0.07] rounded-xl px-3 py-2">
+            <div class="w-7 h-7 rounded-full bg-[#00e5ff]/20 flex items-center justify-center">
+              <span class="material-symbols-outlined text-[#00e5ff] text-sm">person</span>
+            </div>
+            <span class="text-xs text-[#8a8d9e] hidden md:block" id="admin-email-display">Admin</span>
+          </div>
+          <!-- Search -->
+          <div class="relative hidden md:block">
+            <span class="material-symbols-outlined absolute left-3 top-2.5 text-[#4a4d5e] text-base">search</span>
+            <input type="text" id="search-input" placeholder="Search bookings..." class="input-field rounded-xl h-9 pl-9 pr-4 text-sm text-white placeholder-[#4a4d5e] w-52">
+          </div>
+          <!-- Logout -->
+          <button id="logout-btn" class="flex items-center gap-2 rounded-xl h-9 px-4 border border-red-500/20 bg-red-500/5 text-red-400 hover:bg-red-500 hover:text-white transition-all text-xs font-semibold">
+            <span class="material-symbols-outlined text-sm">logout</span>
+            <span class="hidden md:inline">Sign Out</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow p-6">
+      <div class="max-w-7xl mx-auto">
+
+        <!-- Stats Row -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div class="stat-card rounded-xl p-5 flex items-center justify-between">
+            <div>
+              <p class="text-xs text-[#8a8d9e] uppercase tracking-wider font-semibold">Total</p>
+              <h3 class="text-3xl font-bold text-white mt-1" id="stat-total">0</h3>
+            </div>
+            <span class="material-symbols-outlined text-[#00e5ff] text-3xl opacity-60">book_online</span>
+          </div>
+          <div class="stat-card rounded-xl p-5 flex items-center justify-between">
+            <div>
+              <p class="text-xs text-[#8a8d9e] uppercase tracking-wider font-semibold">Tuning</p>
+              <h3 class="text-3xl font-bold text-white mt-1" id="stat-tuning">0</h3>
+            </div>
+            <span class="material-symbols-outlined text-[#00e5ff] text-3xl opacity-60">graphic_eq</span>
+          </div>
+          <div class="stat-card rounded-xl p-5 flex items-center justify-between">
+            <div>
+              <p class="text-xs text-[#8a8d9e] uppercase tracking-wider font-semibold">Engraving</p>
+              <h3 class="text-3xl font-bold text-white mt-1" id="stat-engrave">0</h3>
+            </div>
+            <span class="material-symbols-outlined text-[#00e5ff] text-3xl opacity-60">edit</span>
+          </div>
+          <div class="stat-card rounded-xl p-5 flex items-center justify-between">
+            <div>
+              <p class="text-xs text-[#8a8d9e] uppercase tracking-wider font-semibold">Tech Lab</p>
+              <h3 class="text-3xl font-bold text-white mt-1" id="stat-lab">0</h3>
+            </div>
+            <span class="material-symbols-outlined text-[#00e5ff] text-3xl opacity-60">science</span>
+          </div>
+        </div>
+
+        <!-- Mobile Search -->
+        <div class="md:hidden mb-4 relative">
+          <span class="material-symbols-outlined absolute left-3 top-2.5 text-[#4a4d5e] text-base">search</span>
+          <input type="text" id="search-input-mobile" placeholder="Search bookings..." class="input-field rounded-xl h-9 pl-9 pr-4 text-sm text-white placeholder-[#4a4d5e] w-full">
+        </div>
+
+        <!-- Bookings Table -->
+        <div class="bg-[#0d0d12] border border-white/[0.07] rounded-2xl overflow-hidden">
+          <div class="px-6 py-4 border-b border-white/[0.07] flex items-center justify-between">
+            <h2 class="text-base font-bold text-white">All Appointments</h2>
+            <button onclick="loadBookings()" class="text-xs text-[#00e5ff] hover:underline flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm">refresh</span> Refresh
+            </button>
+          </div>
+          <div class="overflow-x-auto hide-scrollbar">
+            <table class="w-full text-left min-w-[1100px]">
+              <thead>
+                <tr class="bg-[#0a0a0f] text-xs text-[#4a4d5e] uppercase font-semibold tracking-wider border-b border-white/[0.05]">
+                  <th class="py-3.5 px-5">Ticket ID</th>
+                  <th class="py-3.5 px-5">Patient</th>
+                  <th class="py-3.5 px-5">Contact</th>
+                  <th class="py-3.5 px-5">DOB</th>
+                  <th class="py-3.5 px-5">Department</th>
+                  <th class="py-3.5 px-5">Specialist</th>
+                  <th class="py-3.5 px-5">Schedule</th>
+                  <th class="py-3.5 px-5">Reason</th>
+                  <th class="py-3.5 px-5 text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody id="bookings-table-body" class="text-sm divide-y divide-white/[0.04]">
+                <tr>
+                  <td colspan="9" class="py-12 text-center text-[#4a4d5e]">
+                    <span class="material-symbols-outlined text-4xl block mb-2 opacity-40">hourglass_empty</span>
+                    Loading appointments...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer inside dashboard -->
+    <footer class="border-t border-white/[0.05] py-4 text-center text-xs text-[#4a4d5e]">
+      Nova Admin Panel • © 2024 Aroma Electronics
+    </footer>
+  </div>
+
+  <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    const supabaseUrl = 'https://srrkbcqggjjugfqhxtua.supabase.co';
-    const supabaseKey = 'sb_publishable_qq3RyG6BwmEfbjv1v2WTmg_L2uREJhl';
-    let supabaseClient = null;
+    // ==============================
+    // SUPABASE INIT
+    // ==============================
+    const SUPABASE_URL = 'https://srrkbcqggjjugfqhxtua.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_qq3RyG6BwmEfbjv1v2WTmg_L2uREJhl';
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
     let allBookings = [];
 
-    try {
-      if (window.supabase) {
-        supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-      }
-    } catch (e) {
-      console.error("Failed to init Supabase:", e);
-    }
-
+    // ==============================
+    // ON PAGE LOAD
+    // ==============================
     document.addEventListener('DOMContentLoaded', async () => {
-      if (!supabaseClient) {
-        alert("Supabase CDN failed to load.");
+      // Check for active Supabase auth session
+      const { data: { session } } = await sb.auth.getSession();
+      if (session) {
+        showDashboard(session.user.email);
         return;
       }
-      
-      // Check if any admin exists in the database
-      await checkAdminAvailability();
 
-      // Bind Auth Forms
-      document.getElementById('admin-signup-form').addEventListener('submit', handleSignup);
-      document.getElementById('admin-login-form').addEventListener('submit', handleLogin);
-      document.getElementById('logout-admin-btn').addEventListener('click', handleLogout);
-      document.getElementById('search-input').addEventListener('input', handleSearch);
+      // Also restore from sessionStorage (custom email/password fallback)
+      const savedAdmin = sessionStorage.getItem('nova_admin');
+      if (savedAdmin) {
+        showDashboard(JSON.parse(savedAdmin).email);
+        return;
+      }
+
+      // No session: check if any admin exists
+      await initAuthView();
+      bindForms();
     });
 
-    async function checkAdminAvailability() {
-      try {
-        const { data, error } = await supabaseClient
-          .from('admin_users')
-          .select('id');
-
-        if (error) throw error;
-
-        const signupView = document.getElementById('admin-signup-view');
-        const loginView = document.getElementById('admin-login-view');
-        const authSubtitle = document.getElementById('auth-subtitle');
-
+    // Listen for OAuth redirect
+    sb.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        // First, verify this email is an approved admin
+        const { data, error } = await sb.from('admin_users').select('email').eq('email', session.user.email);
         if (data && data.length > 0) {
-          // Admin already exists: LOCK SIGNUP completely
-          signupView.classList.add('hidden');
-          loginView.classList.remove('hidden');
-          authSubtitle.textContent = "Admin account registered. Please log in.";
+          showDashboard(session.user.email);
         } else {
-          // No admin exists: Show signup slot
-          signupView.classList.remove('hidden');
-          loginView.classList.add('hidden');
-          authSubtitle.textContent = "Create the master admin account (single-slot available).";
+          // Check if this is the first ever admin (Google signup path)
+          const { data: allAdmins } = await sb.from('admin_users').select('id');
+          if (allAdmins && allAdmins.length === 0) {
+            // Register this Google user as the admin
+            await sb.from('admin_users').insert([{ email: session.user.email, password: 'google_oauth' }]);
+            showDashboard(session.user.email);
+          } else {
+            await sb.auth.signOut();
+            alert('⚠️ Access Denied: This Google account is not authorized as an admin.');
+          }
         }
-      } catch (err) {
-        console.error("Check admin error:", err);
-        // If 'admin_users' table doesn't exist, show warning/info
-        alert("Database connection check failed.\n\nPlease execute the SQL script in your Supabase Dashboard to create the 'admin_users' table before continuing.");
+      }
+    });
+
+    // ==============================
+    // AUTH VIEW INIT
+    // ==============================
+    async function initAuthView() {
+      const { data, error } = await sb.from('admin_users').select('id');
+      const loginView = document.getElementById('login-view');
+      const registerView = document.getElementById('register-view');
+      const banner = document.getElementById('first-admin-banner');
+      const subtitle = document.getElementById('auth-subtitle');
+
+      if (data && data.length === 0) {
+        // First time: show signup only
+        loginView.classList.add('hidden');
+        registerView.classList.remove('hidden');
+        banner.classList.remove('hidden');
+        subtitle.textContent = 'One-time setup: Create your master admin account';
+      } else {
+        // Admin exists: show login only
+        loginView.classList.remove('hidden');
+        registerView.classList.add('hidden');
+        subtitle.textContent = 'Secure access — administrators only';
       }
     }
 
-    async function handleSignup(e) {
-      e.preventDefault();
-      const email = document.getElementById('signup-email').value.trim();
-      const password = document.getElementById('signup-password').value;
+    // ==============================
+    // BIND FORMS
+    // ==============================
+    function bindForms() {
+      // Google login
+      document.getElementById('google-login-btn').addEventListener('click', async () => {
+        await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.href } });
+      });
 
-      try {
-        // Double check if any admin exists just in case
-        const { data: existing } = await supabaseClient.from('admin_users').select('id');
-        if (existing && existing.length > 0) {
-          alert("Error: Admin registration is locked. An admin account already exists.");
-          window.location.reload();
-          return;
-        }
-
-        const { error } = await supabaseClient
-          .from('admin_users')
-          .insert([{ email, password }]);
-
-        if (error) throw error;
-
-        alert("🎉 Admin Account Registered Successfully!");
-        // Log in the user automatically
-        sessionStorage.setItem('admin_session', JSON.stringify({ email }));
-        showDashboard();
-      } catch (err) {
-        alert("Registration failed: " + (err.message || err));
+      // Google signup
+      const googleSignupBtn = document.getElementById('google-signup-btn');
+      if (googleSignupBtn) {
+        googleSignupBtn.addEventListener('click', async () => {
+          await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.href } });
+        });
       }
+
+      // Email login
+      document.getElementById('email-login-form').addEventListener('submit', handleEmailLogin);
+
+      // Email register
+      document.getElementById('email-register-form').addEventListener('submit', handleEmailRegister);
+
+      // Logout
+      document.getElementById('logout-btn').addEventListener('click', handleLogout);
+
+      // Search
+      document.getElementById('search-input').addEventListener('input', handleSearch);
+      document.getElementById('search-input-mobile').addEventListener('input', handleSearch);
     }
 
-    async function handleLogin(e) {
+    // ==============================
+    // EMAIL LOGIN
+    // ==============================
+    async function handleEmailLogin(e) {
       e.preventDefault();
       const email = document.getElementById('login-email').value.trim();
       const password = document.getElementById('login-password').value;
       const errorDiv = document.getElementById('login-error');
+      errorDiv.classList.add('hidden');
 
-      try {
-        const { data, error } = await supabaseClient
-          .from('admin_users')
-          .select('*')
-          .eq('email', email)
-          .eq('password', password);
-
-        if (error) throw error;
-
-        if (data && data.length > 0) {
-          errorDiv.classList.add('hidden');
-          sessionStorage.setItem('admin_session', JSON.stringify({ email: data[0].email }));
-          showDashboard();
-        } else {
-          errorDiv.classList.remove('hidden');
-        }
-      } catch (err) {
-        alert("Authentication failed: " + (err.message || err));
+      // Check admin_users table (custom auth fallback)
+      const { data, error } = await sb.from('admin_users').select('*').eq('email', email).eq('password', password);
+      if (error || !data || data.length === 0) {
+        errorDiv.classList.remove('hidden');
+        return;
       }
+      sessionStorage.setItem('nova_admin', JSON.stringify({ email }));
+      showDashboard(email);
     }
 
-    function handleLogout() {
-      sessionStorage.removeItem('admin_session');
-      window.location.reload();
-    }
+    // ==============================
+    // EMAIL REGISTER (Single-slot)
+    // ==============================
+    async function handleEmailRegister(e) {
+      e.preventDefault();
+      const email = document.getElementById('reg-email').value.trim();
+      const password = document.getElementById('reg-password').value;
 
-    function showDashboard() {
-      document.getElementById('admin-auth-card').classList.add('hidden');
-      document.getElementById('admin-dashboard').classList.remove('hidden');
-      loadBookings();
-    }
-
-    async function loadBookings() {
-      const tableBody = document.getElementById('bookings-table-body');
-      
-      try {
-        const { data, error } = await supabaseClient
-          .from('appointments')
-          .select('*')
-          .order('created_at', { ascending: false });
-
-        if (error) throw error;
-
-        allBookings = data || [];
-        renderBookings(allBookings);
-      } catch (err) {
-        tableBody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-red-400">Failed to load bookings: ${err.message || err}</td></tr>`;
-      }
-    }
-
-    function renderBookings(bookings) {
-      const tableBody = document.getElementById('bookings-table-body');
-      
-      // Update statistics
-      document.getElementById('stat-total').textContent = bookings.length;
-      document.getElementById('stat-tuning').textContent = bookings.filter(b => b.department === 'Acoustic Tuning').length;
-      document.getElementById('stat-lab').textContent = bookings.filter(b => b.department === 'Avengers Tech Lab').length;
-
-      if (bookings.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-[#b9cacb]">No appointments found.</td></tr>`;
+      // Final check: ensure no admin exists
+      const { data: existing } = await sb.from('admin_users').select('id');
+      if (existing && existing.length > 0) {
+        alert('⚠️ Admin registration is permanently locked. An account already exists.');
+        window.location.reload();
         return;
       }
 
-      tableBody.innerHTML = bookings.map(b => `
-        <tr class="hover:bg-[#121217]/40 transition-colors" id="row-${b.id}">
-          <td class="py-4 px-6 font-bold text-[#00f0ff]">${b.ticket_id}</td>
-          <td class="py-4 px-6 text-[#e4e1e8] font-medium">${b.full_name}</td>
-          <td class="py-4 px-6">
-            <div class="flex flex-col">
-              <span class="text-[#e4e1e8]">${b.email}</span>
-              <span class="text-xs text-[#b9cacb] mt-0.5">${b.phone}</span>
-            </div>
+      const { error } = await sb.from('admin_users').insert([{ email, password }]);
+      if (error) {
+        alert('Registration failed: ' + error.message);
+        return;
+      }
+      sessionStorage.setItem('nova_admin', JSON.stringify({ email }));
+      alert('🎉 Admin account created! Welcome to Nova Admin Portal.');
+      showDashboard(email);
+    }
+
+    // ==============================
+    // LOGOUT
+    // ==============================
+    async function handleLogout() {
+      await sb.auth.signOut();
+      sessionStorage.removeItem('nova_admin');
+      window.location.reload();
+    }
+
+    // ==============================
+    // SHOW DASHBOARD
+    // ==============================
+    function showDashboard(email) {
+      document.getElementById('auth-section').classList.add('hidden');
+      document.getElementById('dashboard-section').classList.remove('hidden');
+      document.getElementById('dashboard-section').classList.add('flex');
+      if (email) document.getElementById('admin-email-display').textContent = email;
+      loadBookings();
+    }
+
+    // ==============================
+    // LOAD BOOKINGS
+    // ==============================
+    async function loadBookings() {
+      const tbody = document.getElementById('bookings-table-body');
+      tbody.innerHTML = `<tr><td colspan="9" class="py-12 text-center text-[#4a4d5e]">
+        <span class="material-symbols-outlined text-4xl block mb-2 opacity-40">hourglass_empty</span>Loading...</td></tr>`;
+
+      const { data, error } = await sb.from('appointments').select('*').order('created_at', { ascending: false });
+
+      if (error) {
+        tbody.innerHTML = `<tr><td colspan="9" class="py-8 text-center text-red-400">Error: ${error.message}</td></tr>`;
+        return;
+      }
+
+      allBookings = data || [];
+      renderBookings(allBookings);
+    }
+
+    // ==============================
+    // RENDER TABLE
+    // ==============================
+    function renderBookings(bookings) {
+      document.getElementById('stat-total').textContent = bookings.length;
+      document.getElementById('stat-tuning').textContent = bookings.filter(b => b.department === 'Acoustic Tuning').length;
+      document.getElementById('stat-engrave').textContent = bookings.filter(b => b.department === 'Custom Engraving').length;
+      document.getElementById('stat-lab').textContent = bookings.filter(b => b.department === 'Avengers Tech Lab').length;
+
+      const tbody = document.getElementById('bookings-table-body');
+      if (bookings.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" class="py-12 text-center text-[#4a4d5e]">
+          <span class="material-symbols-outlined text-4xl block mb-2 opacity-40">inbox</span>No appointments found</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = bookings.map(b => `
+        <tr class="hover:bg-white/[0.02] transition-colors group" id="row-${b.id}">
+          <td class="py-4 px-5">
+            <span class="font-bold text-[#00e5ff] text-xs bg-[#00e5ff]/10 px-2 py-1 rounded-lg">${b.ticket_id || '—'}</span>
           </td>
-          <td class="py-4 px-6 text-[#b9cacb]">${b.dob}</td>
-          <td class="py-4 px-6">
-            <div class="flex flex-col">
-              <span class="text-[#e4e1e8]">${b.department}</span>
-              <span class="text-xs text-[#b9cacb] mt-0.5">${b.doctor}</span>
-            </div>
+          <td class="py-4 px-5 font-semibold text-white">${b.full_name || '—'}</td>
+          <td class="py-4 px-5">
+            <div class="text-white text-sm">${b.email || '—'}</div>
+            <div class="text-[#4a4d5e] text-xs mt-0.5">${b.phone || '—'}</div>
           </td>
-          <td class="py-4 px-6">
-            <div class="flex flex-col">
-              <span class="text-[#e4e1e8]">${b.appointment_date}</span>
-              <span class="text-xs text-[#b9cacb] mt-0.5">${b.time_slot}</span>
-            </div>
+          <td class="py-4 px-5 text-[#8a8d9e] text-sm">${b.dob || '—'}</td>
+          <td class="py-4 px-5">
+            <span class="text-xs bg-white/[0.05] border border-white/[0.08] px-2.5 py-1 rounded-lg text-[#8a8d9e]">${b.department || '—'}</span>
           </td>
-          <td class="py-4 px-6 max-w-xs truncate text-[#b9cacb]" title="${b.reason}">${b.reason}</td>
-          <td class="py-4 px-6 text-center">
-            <button onclick="deleteBooking('${b.id}')" class="text-red-400 hover:text-red-300 hover:scale-105 transition-all text-xs border border-red-500/20 bg-red-500/5 px-3 py-1.5 rounded-lg font-semibold">
+          <td class="py-4 px-5 text-[#8a8d9e] text-sm">${b.doctor || '—'}</td>
+          <td class="py-4 px-5">
+            <div class="text-white text-sm">${b.appointment_date || '—'}</div>
+            <div class="text-[#4a4d5e] text-xs mt-0.5">${b.time_slot || '—'}</div>
+          </td>
+          <td class="py-4 px-5 text-[#8a8d9e] text-sm max-w-[180px] truncate" title="${b.reason || ''}">${b.reason || '—'}</td>
+          <td class="py-4 px-5 text-center">
+            <button onclick="deleteBooking('${b.id}')" class="text-xs border border-red-500/20 bg-red-500/5 text-red-400 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded-lg font-semibold transition-all opacity-0 group-hover:opacity-100">
               Delete
             </button>
           </td>
@@ -341,44 +542,64 @@
       `).join('');
     }
 
+    // ==============================
+    // DELETE BOOKING
+    // ==============================
     async function deleteBooking(id) {
-      if (!confirm("Are you sure you want to delete this booking?")) return;
+      if (!confirm('Delete this appointment? This cannot be undone.')) return;
+      const { error } = await sb.from('appointments').delete().eq('id', id);
+      if (error) { alert('Delete failed: ' + error.message); return; }
+      document.getElementById(`row-${id}`)?.remove();
+      allBookings = allBookings.filter(b => b.id !== id);
+      renderBookings(allBookings);
+    }
 
-      try {
-        const { error } = await supabaseClient
-          .from('appointments')
-          .delete()
-          .eq('id', id);
+    // ==============================
+    // SEARCH
+    // ==============================
+    function handleSearch(e) {
+      const term = e.target.value.toLowerCase().trim();
+      // Sync both search boxes
+      document.getElementById('search-input').value = term;
+      document.getElementById('search-input-mobile').value = term;
+      renderBookings(allBookings.filter(b =>
+        (b.full_name || '').toLowerCase().includes(term) ||
+        (b.ticket_id || '').toLowerCase().includes(term) ||
+        (b.email || '').toLowerCase().includes(term)
+      ));
+    }
 
-        if (error) throw error;
-
-        // Remove row from table UI
-        document.getElementById(`row-${id}`).remove();
-        allBookings = allBookings.filter(b => b.id !== id);
-        
-        // Update stats
-        document.getElementById('stat-total').textContent = allBookings.length;
-        document.getElementById('stat-tuning').textContent = allBookings.filter(b => b.department === 'Acoustic Tuning').length;
-        document.getElementById('stat-lab').textContent = allBookings.filter(b => b.department === 'Avengers Tech Lab').length;
-      } catch (err) {
-        alert("Failed to delete booking: " + err.message);
+    // ==============================
+    // UTILS
+    // ==============================
+    function togglePass(id, btn) {
+      const input = document.getElementById(id);
+      const icon = btn.querySelector('span');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.textContent = 'visibility_off';
+      } else {
+        input.type = 'password';
+        icon.textContent = 'visibility';
       }
     }
 
-    function handleSearch(e) {
-      const term = e.target.value.toLowerCase().trim();
-      const filtered = allBookings.filter(b => 
-        b.full_name.toLowerCase().includes(term) || 
-        b.ticket_id.toLowerCase().includes(term) ||
-        b.email.toLowerCase().includes(term)
-      );
-      renderBookings(filtered);
-    }
-
-    // Restore session on load
-    const activeSession = sessionStorage.getItem('admin_session');
-    if (activeSession) {
-      showDashboard();
+    function switchTab(tab) {
+      const loginView = document.getElementById('login-view');
+      const registerView = document.getElementById('register-view');
+      const tabLogin = document.getElementById('tab-login');
+      const tabReg = document.getElementById('tab-register');
+      if (tab === 'login') {
+        loginView.classList.remove('hidden');
+        registerView.classList.add('hidden');
+        tabLogin.classList.add('active');
+        tabReg.classList.remove('active');
+      } else {
+        loginView.classList.add('hidden');
+        registerView.classList.remove('hidden');
+        tabLogin.classList.remove('active');
+        tabReg.classList.add('active');
+      }
     }
   </script>
 </body>
