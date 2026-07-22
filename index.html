@@ -106,10 +106,10 @@
     </div>
   </div>
 
-  <!-- Transparent Navigation Bar -->
-  <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-transparent px-8 md:px-16 py-4 bg-transparent fixed top-0 left-0 right-0 z-50 transition-all duration-500">
-    <!-- Logo (Left Column, fixed min-width for alignment) -->
-    <div class="flex items-center gap-3 text-primary min-w-[220px]">
+  <!-- Navigation Bar -->
+  <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-transparent px-4 md:px-10 lg:px-16 py-4 bg-background/80 backdrop-blur-md fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <!-- Logo -->
+    <a href="#home" class="flex items-center gap-3 text-primary shrink-0">
       <div class="size-5 text-primary-container">
         <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
           <path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
@@ -119,10 +119,10 @@
         <h2 class="text-primary text-base md:text-lg font-bold leading-none tracking-wider">NOVA STUDIO</h2>
         <span class="text-[9px] text-on-surface-variant tracking-[0.2em] uppercase font-label-sm">AI Audio Experience</span>
       </div>
-    </div>
+    </a>
     
-    <!-- Navigation Links (Center Column, takes remaining space and centers text) -->
-    <nav class="flex items-center justify-center gap-8 hidden lg:flex flex-grow">
+    <!-- Center Navigation Links (Home, About, Features, Technology, Process, Contact) -->
+    <nav class="hidden md:flex items-center justify-center gap-5 lg:gap-8 mx-4">
       <a class="text-on-surface-variant hover:text-primary text-xs font-semibold uppercase tracking-[0.15em] transition-colors" href="#home">Home</a>
       <a class="text-on-surface-variant hover:text-primary text-xs font-semibold uppercase tracking-[0.15em] transition-colors" href="#about">About</a>
       <a class="text-on-surface-variant hover:text-primary text-xs font-semibold uppercase tracking-[0.15em] transition-colors" href="#features">Features</a>
@@ -131,9 +131,9 @@
       <a class="text-on-surface-variant hover:text-primary text-xs font-semibold uppercase tracking-[0.15em] transition-colors" href="#contact">Contact</a>
     </nav>
     
-    <!-- Action Button (Right Column, fixed min-width matching left side) -->
-    <div class="flex items-center justify-end min-w-[340px] gap-8">
-      <div id="auth-nav-container" class="flex items-center gap-4">
+    <!-- Right Action Buttons -->
+    <div class="flex items-center justify-end gap-3 md:gap-6 shrink-0">
+      <div id="auth-nav-container" class="flex items-center gap-3">
         <button id="nav-login-btn" class="text-on-surface-variant hover:text-primary text-xs font-semibold uppercase tracking-[0.15em] transition-all duration-300">Sign In</button>
         <div id="user-profile-menu" class="relative hidden">
           <button id="user-avatar-btn" class="flex items-center gap-2 focus:outline-none transition-transform hover:scale-105 duration-300">
@@ -152,11 +152,26 @@
         </div>
       </div>
       
-      <button class="flex min-w-[125px] max-w-[200px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary-container text-on-primary-container text-xs font-bold uppercase tracking-[0.1em] hover:bg-primary-fixed hover:scale-105 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all duration-300">
+      <a href="#contact" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-9 px-5 bg-primary-container text-on-primary-container text-xs font-bold uppercase tracking-[0.1em] hover:bg-primary-fixed hover:scale-105 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all duration-300">
         <span class="truncate">Pre-Order</span>
+      </a>
+
+      <!-- Mobile Menu Hamburger Button -->
+      <button id="mobile-menu-toggle" class="md:hidden text-on-surface-variant hover:text-primary p-1 focus:outline-none flex items-center justify-center">
+        <span class="material-symbols-outlined text-2xl">menu</span>
       </button>
     </div>
   </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div id="mobile-nav-drawer" class="fixed top-[65px] left-0 right-0 bg-[#0d0d12]/95 backdrop-blur-xl border-b border-outline-variant py-6 px-8 flex flex-col gap-4 text-center z-40 hidden md:hidden shadow-2xl transition-all duration-300">
+    <a class="mobile-nav-link text-on-surface-variant hover:text-primary text-sm font-semibold uppercase tracking-[0.15em] py-2 border-b border-white/5" href="#home">Home</a>
+    <a class="mobile-nav-link text-on-surface-variant hover:text-primary text-sm font-semibold uppercase tracking-[0.15em] py-2 border-b border-white/5" href="#about">About</a>
+    <a class="mobile-nav-link text-on-surface-variant hover:text-primary text-sm font-semibold uppercase tracking-[0.15em] py-2 border-b border-white/5" href="#features">Features</a>
+    <a class="mobile-nav-link text-on-surface-variant hover:text-primary text-sm font-semibold uppercase tracking-[0.15em] py-2 border-b border-white/5" href="#technology">Technology</a>
+    <a class="mobile-nav-link text-on-surface-variant hover:text-primary text-sm font-semibold uppercase tracking-[0.15em] py-2 border-b border-white/5" href="#process">Process</a>
+    <a class="mobile-nav-link text-on-surface-variant hover:text-primary text-sm font-semibold uppercase tracking-[0.15em] py-2" href="#contact">Contact</a>
+  </div>
 
   <!-- Main Content Wrapper -->
   <div class="scroll-container" id="home">
