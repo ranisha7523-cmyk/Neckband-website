@@ -197,13 +197,23 @@
     </div>
 
     <!-- 1. ABOUT US SECTION -->
-    <section class="py-section-gap px-6 md:px-16 bg-surface relative overflow-hidden border-t border-outline-variant" id="about">
-      <div class="bg-glow-effect"></div>
+    <section class="py-section-gap px-6 md:px-16 bg-surface relative overflow-hidden border-t border-outline-variant reveal reveal-up" id="about">
+      <div class="bg-glow-effect animate-aura-pulse"></div>
       <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
         <!-- Left Side: Copy and Stats -->
-        <div class="flex flex-col gap-8 text-center lg:text-left">
+        <div class="flex flex-col gap-8 text-center lg:text-left reveal reveal-left delay-100">
           <div class="flex flex-col gap-3">
-            <span class="text-xs uppercase tracking-[0.2em] text-primary-container font-semibold">About the sound</span>
+            <div class="flex items-center gap-2 justify-center lg:justify-start">
+              <span class="text-xs uppercase tracking-[0.2em] text-primary-container font-semibold">About the sound</span>
+              <!-- Equalizer animation loop -->
+              <div class="flex items-end gap-0.5 h-5 px-1.5 py-0.5 rounded bg-primary-container/10 border border-primary-container/20">
+                <span class="w-0.5 bg-primary-container rounded-full eq-bar-1"></span>
+                <span class="w-0.5 bg-primary-container rounded-full eq-bar-2"></span>
+                <span class="w-0.5 bg-primary-container rounded-full eq-bar-3"></span>
+                <span class="w-0.5 bg-primary-container rounded-full eq-bar-4"></span>
+                <span class="w-0.5 bg-primary-container rounded-full eq-bar-5"></span>
+              </div>
+            </div>
             <h2 class="text-display-lg text-primary leading-tight">
               We Turn Sound<br/>Into Immersive Reality
             </h2>
@@ -232,18 +242,52 @@
           </div>
         </div>
         <!-- Right Side: Holographic neckband image -->
-        <div class="relative w-full aspect-square flex justify-center items-center">
-          <div class="absolute inset-0 bg-primary-container/10 rounded-full blur-3xl scale-75"></div>
+        <div class="relative w-full aspect-square flex justify-center items-center reveal reveal-right delay-200">
+          <div class="absolute inset-0 bg-primary-container/10 rounded-full blur-3xl scale-75 animate-aura-pulse"></div>
           <img class="object-contain w-full h-full max-h-[460px] z-10 relative drop-shadow-[0_0_40px_rgba(0,240,255,0.25)] animate-float" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDpeA9uNgjsDh3N1F13JTj4-ImO1cq5Hw8RzChBQphI3bEe9Skv-zhbjBgdltNBir5EROMF7KDyB7VJPB-j12UsfMIEkuIjyec1EEjlZHgmQLyHJQb_b5SlmmjL2mcuhHC2rnHikhWBQYwKavnYktKQu_Z4qyrAwdp35Bd-GVLxuDEqFJy1_CMNtghNG16LRXxJU0HyrKWN-tL6RXE3MTU_nhgg_nXAqiQp-bDreObHFJXFqt7sQLL81uTF2hBClAIYi27TGTOzPM" alt="Aroma NB123 Avengers neckband design"/>
         </div>
       </div>
     </section>
 
+    <!-- CONTINUOUS INFINITE MARQUEE LOOP TICKER -->
+    <div class="w-full bg-[#09090e] border-y border-outline-variant py-3.5 overflow-hidden relative">
+      <div class="marquee-track">
+        <div class="flex items-center gap-8 px-4 text-xs font-semibold uppercase tracking-[0.2em] text-on-surface-variant shrink-0">
+          <span class="flex items-center gap-2 text-primary-container"><span class="material-symbols-outlined text-base">graphic_eq</span> Titanium 10mm Drivers</span>
+          <span class="text-white/20">•</span>
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-base">battery_charging_full</span> 48 Hours Playtime</span>
+          <span class="text-white/20">•</span>
+          <span class="flex items-center gap-2 text-primary-container"><span class="material-symbols-outlined text-base">shield</span> Avengers Special Edition</span>
+          <span class="text-white/20">•</span>
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-base">water_drop</span> IPX5 Waterproof</span>
+          <span class="text-white/20">•</span>
+          <span class="flex items-center gap-2 text-primary-container"><span class="material-symbols-outlined text-base">bolt</span> Ultra Low Latency</span>
+          <span class="text-white/20">•</span>
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-base">bluetooth</span> Bluetooth v5.3 Sync</span>
+          <span class="text-white/20">•</span>
+        </div>
+        <div class="flex items-center gap-8 px-4 text-xs font-semibold uppercase tracking-[0.2em] text-on-surface-variant shrink-0">
+          <span class="flex items-center gap-2 text-primary-container"><span class="material-symbols-outlined text-base">graphic_eq</span> Titanium 10mm Drivers</span>
+          <span class="text-white/20">•</span>
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-base">battery_charging_full</span> 48 Hours Playtime</span>
+          <span class="text-white/20">•</span>
+          <span class="flex items-center gap-2 text-primary-container"><span class="material-symbols-outlined text-base">shield</span> Avengers Special Edition</span>
+          <span class="text-white/20">•</span>
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-base">water_drop</span> IPX5 Waterproof</span>
+          <span class="text-white/20">•</span>
+          <span class="flex items-center gap-2 text-primary-container"><span class="material-symbols-outlined text-base">bolt</span> Ultra Low Latency</span>
+          <span class="text-white/20">•</span>
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-base">bluetooth</span> Bluetooth v5.3 Sync</span>
+          <span class="text-white/20">•</span>
+        </div>
+      </div>
+    </div>
+
     <!-- 2. FEATURES SECTION -->
-    <section class="py-section-gap px-6 md:px-16 bg-surface-container-low" id="features">
+    <section class="py-section-gap px-6 md:px-16 bg-surface-container-low reveal reveal-up" id="features">
       <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
         <!-- Left Column: Title -->
-        <div class="flex flex-col gap-4 text-center lg:text-left sticky top-24">
+        <div class="flex flex-col gap-4 text-center lg:text-left sticky top-24 reveal reveal-left delay-100">
           <span class="text-xs uppercase tracking-[0.2em] text-primary-container font-semibold">Engineered Excellence</span>
           <h2 class="text-headline-lg text-primary">
             Our Core Features
@@ -253,7 +297,7 @@
           </p>
         </div>
         <!-- Right Two Columns: 2x3 Grid of Features -->
-        <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6 reveal reveal-right delay-200">
           
           <!-- Card 1 -->
           <div class="flex gap-4 rounded-xl border border-outline-variant bg-surface-container p-6 flex-col hover:border-primary-container/40 hover:shadow-[0_0_20px_rgba(0,240,255,0.05)] transition-all duration-300">
@@ -326,11 +370,11 @@
     </section>
 
     <!-- 3. SELECTED PROJECTS / TECHNOLOGY SHOWCASE (Panel 4) -->
-    <section class="py-section-gap px-6 md:px-16 bg-background relative overflow-hidden" id="technology">
-      <div class="bg-glow-effect"></div>
+    <section class="py-section-gap px-6 md:px-16 bg-background relative overflow-hidden reveal reveal-up" id="technology">
+      <div class="bg-glow-effect animate-aura-pulse"></div>
       <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 items-center relative z-10">
         <!-- Left Side: Tech Description -->
-        <div class="flex flex-col gap-6 text-center lg:text-left">
+        <div class="flex flex-col gap-6 text-center lg:text-left reveal reveal-left delay-100">
           <span class="text-xs uppercase tracking-[0.2em] text-primary-container font-semibold">Our Work</span>
           <h2 class="text-headline-lg text-primary">Selected Projects</h2>
           <p class="text-body-md text-on-surface-variant">
@@ -344,7 +388,7 @@
         </div>
         
         <!-- Right Side: Horizontal scrolling cards container -->
-        <div class="lg:col-span-2 flex gap-6 overflow-x-auto pb-6 scroll-smooth snap-x snap-mandatory hide-scrollbar">
+        <div class="lg:col-span-2 flex gap-6 overflow-x-auto pb-6 scroll-smooth snap-x snap-mandatory hide-scrollbar reveal reveal-right delay-200">
           
           <!-- Card 1 (AI DSP Process) -->
           <div class="flex-shrink-0 w-[240px] h-[360px] rounded-2xl border border-outline-variant bg-surface-container-high/60 backdrop-blur-md overflow-hidden flex flex-col justify-between p-6 snap-start hover:border-primary-container/40 transition-colors duration-300">
@@ -413,10 +457,10 @@
     </section>
 
     <!-- 4. DEVELOPMENT PROCESS SECTION -->
-    <section class="py-section-gap px-6 md:px-16 bg-surface-container-low" id="process">
+    <section class="py-section-gap px-6 md:px-16 bg-surface-container-low reveal reveal-up" id="process">
       <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
         <!-- Left Side: Copy -->
-        <div class="flex flex-col gap-4 text-center lg:text-left">
+        <div class="flex flex-col gap-4 text-center lg:text-left reveal reveal-left delay-100">
           <span class="text-xs uppercase tracking-[0.2em] text-primary-container font-semibold">Crafting Sound</span>
           <h2 class="text-headline-lg text-primary">Our Simple Process</h2>
           <p class="text-body-md text-on-surface-variant max-w-sm">
